@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [HeaderComponent, RouterOutlet],
+  template: `
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  `,
 })
-export class AppComponent {
-  title = 'cadastro-alunos';
-}
+export class AppComponent {}
