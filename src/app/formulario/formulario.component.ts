@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AlunoService } from '../aluno.service';
 
 @Component({
   selector: 'app-formulario',
@@ -12,24 +13,17 @@ import { CommonModule } from '@angular/common';
       <input type="text" [(ngModel)]="nome" placeholder="Digite o nome do aluno" />
       <button (click)="salvar()">Salvar</button>
       <p>Valor digitado: {{ nome }}</p>
-
-      <ul *ngIf="alunos.length > 0; else noAluno">
-        <li *ngFor="let aluno of alunos">{{ aluno }}</li>
-      </ul>
-      <ng-template #noAluno>
-        <p>Nenhum aluno cadastrado</p>
-      </ng-template>
     </div>
   `,
 })
 export class FormularioComponent {
   nome: string = '';
-  alunos: string[] = [];
+
+  constructor(private alunoService: AlunoService) {}
 
   salvar(): void {
-    if (this.nome.trim()) {
-      this.alunos.push(this.nome);
-      this.nome = '';
-    }
+    this.alunoService.adicionar(this.nome);
+    this.nome = ''; 
   }
 }
+
